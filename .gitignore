@@ -65,5 +65,4 @@ jspm_packages/
 /config.json
 
 # Ignore lock files until it not will be published
-/package-lock.json
 /shrinkwrap.yaml
