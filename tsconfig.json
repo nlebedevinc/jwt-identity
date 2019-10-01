@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "rootDirs": [
+            "src"
+        ],
+        "outDir": "dist",
+        "target": "esnext",
+        "module": "commonjs",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "pretty": true,
+        "strict": true,
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "inlineSourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "declaration": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "removeComments": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "inlineSources": true,
+        "resolveJsonModule": true,
+        "importHelpers": true,
+        "declarationDir": "dist/types",
+        "esModuleInterop": true,
+        "typeRoots": [
+            "src/types",
+            "node_modules/@types"
+        ],
+        "types": [
+            "node"
+        ]
+    },
+    "include": [
+        "src/**/**.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
+}

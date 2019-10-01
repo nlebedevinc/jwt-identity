@@ -1,0 +1,22 @@
+{
+  "name": "jwt-auth-hapi",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && node ./dist/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/hapi": "^18.0.2",
+    "typescript": "^3.6.3",
+    "@types/hapi__hapi": "^18.2.5"
+  }
+}
