@@ -12,11 +12,13 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^18.4.0",
+    "pg": "^7.12.1",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@types/hapi": "^18.0.2",
-    "typescript": "^3.6.3",
-    "@types/hapi__hapi": "^18.2.5"
+    "@types/hapi__hapi": "^18.2.5",
+    "@types/pg": "^7.11.2",
+    "typescript": "^3.6.3"
   }
 }
