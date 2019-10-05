@@ -1,6 +1,9 @@
-import { Server as HapiServer, RequestApplicationState } from '@hapi/hapi';
+import { Server as HapiServer, RequestApplicationState, ServerRegisterPluginObject } from '@hapi/hapi';
 import testRoute from './api/test.api';
 import { Pool, PoolConfig } from 'pg';
+import * as Inert from '@hapi/inert';
+import * as Vision from '@hapi/vision';
+import * as hapiSwagger from 'hapi-swagger';
 
 interface ApplicationState extends RequestApplicationState {
     pool: Pool;
@@ -22,14 +25,33 @@ const poolConfig: PoolConfig = {
 // initialize db connection
 const pool: Pool = new Pool(poolConfig);
 
-function init(): Server {
+async function init(): Promise<Server> {
     const server = new HapiServer({
         debug: false,
         port: 3000,
     }) as Server;
 
+    // meta
     server.app.pool = pool;
 
+    // plugins: move to plugins directory
+    await server.register([
+        Inert,
+        Vision,
+        {
+            plugin: hapiSwagger,
+            options: {
+                host: 'localhost:3000',
+                info: {
+                    title: 'Swagger Documentation',
+                    description: 'Some desc',
+                    version: '1.0',
+                }
+            }
+        }
+    ] as ServerRegisterPluginObject<object>[])
+
+    // register server routes
     testRoute(server, '/v1');
 
     return server;

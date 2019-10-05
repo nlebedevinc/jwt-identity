@@ -2,7 +2,7 @@ import { Server as HapiServer } from '@hapi/hapi';
 import init from './app';
 
 async function start() {
-    const server: HapiServer = init();
+    const server: HapiServer =  await init();
     await server.start();
 
     console.log('Server started');

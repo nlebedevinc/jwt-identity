@@ -8,6 +8,11 @@ export default function(server: Hapi.Server, prefix: string) {
             method: 'GET',
             path: '/test',
             handler: get,
+            options: {
+                notes: 'Test purpose',
+                tags: ['api', 'test'],
+                description: 'Test route',
+            }
         }
     ]);
 }
