@@ -1,3 +1,3 @@
 # JWT Identity
 
-Identity service with JWT strategy implemention using Hapi
+Identity service with JWT strategy implemention using Hapi and PostgeSQL
