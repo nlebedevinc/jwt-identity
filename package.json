@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint --ext ts .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && node ./dist/index"
+    "start": "npm run build && node ./dist/index",
+    "precommit": "npm run lint",
+    "pretest": "npm run lint"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +27,9 @@
     "@types/hapi__inert": "^5.2.0",
     "@types/hapi__vision": "^5.5.1",
     "@types/pg": "^7.11.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "eslint": "^6.5.1",
     "typescript": "^3.6.3"
   }
 }

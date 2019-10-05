@@ -1,6 +1,6 @@
-import { Request, ResponseToolkit } from '@hapi/hapi';
+import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
 
-export function get(request: Request, reply: ResponseToolkit) {
-    console.log(request);
-    return reply.response('response');
+export function get(_: Request, h: ResponseToolkit): ResponseObject | Error {
+    console.log(_);
+    return h.response({ message: 'hello' });
 }
