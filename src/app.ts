@@ -1,24 +1,34 @@
-import { Server } from '@hapi/hapi';
+import { Server as HapiServer, RequestApplicationState } from '@hapi/hapi';
 import testRoute from './api/test.api';
-// import { Pool, PoolClient, PoolConfig } from 'pg';
+import { Pool, PoolConfig } from 'pg';
 
-// // pool config
-// const poolConfig: PoolConfig = {
-//     user: 'me',
-//     host: 'localhost',
-//     database: 'api',
-//     password: 'password',
-//     port: 5432,
-// };
+interface ApplicationState extends RequestApplicationState {
+    pool: Pool;
+}
+interface Server extends HapiServer {
+    app: ApplicationState;
+}
 
-// // initialize db connection
-// const pool: PoolClient = new Pool(poolConfig);
+// pool config: should be replaced to connection string
+const poolConfig: PoolConfig = {
+    // connectionString: 'string',
+    user: 'me',
+    host: 'localhost',
+    database: 'api',
+    password: 'password',
+    port: 5432,
+};
+
+// initialize db connection
+const pool: Pool = new Pool(poolConfig);
 
 function init(): Server {
-    const server = new Server({
+    const server = new HapiServer({
         debug: false,
         port: 3000,
-    });
+    }) as Server;
+
+    server.app.pool = pool;
 
     testRoute(server, '/v1');
 
