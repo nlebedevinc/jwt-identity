@@ -4,6 +4,7 @@ import { Pool, PoolConfig } from 'pg';
 import * as Inert from '@hapi/inert';
 import * as Vision from '@hapi/vision';
 import * as hapiSwagger from 'hapi-swagger';
+import Database from './services/database';
 
 interface ApplicationState extends RequestApplicationState {
     pool: Pool;
@@ -23,13 +24,15 @@ const poolConfig: PoolConfig = {
 };
 
 // initialize db connection
-const pool: Pool = new Pool(poolConfig);
+// const pool: Pool = new Pool(poolConfig);
 
 async function init(): Promise<Server> {
     const server = new HapiServer({
         debug: false,
         port: 3000,
     }) as Server;
+
+    const pool = Database.create(poolConfig);
 
     // meta
     server.app.pool = pool;
