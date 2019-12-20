@@ -1,5 +1,6 @@
 import { Server as HapiServer, RequestApplicationState, ServerRegisterPluginObject } from '@hapi/hapi';
 import testRoute from './api/test.api';
+import usersRoute from './api/users.api';
 import { Pool, PoolConfig } from 'pg';
 import * as Inert from '@hapi/inert';
 import * as Vision from '@hapi/vision';
@@ -56,6 +57,12 @@ async function init(): Promise<Server> {
 
     // register server routes
     testRoute(server, '/v1');
+    usersRoute(server, '/v1');
+
+    // handle on close action
+    server.events.on('stop', () => {
+        Database.destroy(pool);
+    });
 
     return server;
 }

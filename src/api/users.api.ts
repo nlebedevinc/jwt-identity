@@ -9,7 +9,7 @@ export default function(server: Hapi.Server, prefix: string) {
             path: '/login',
             handler: login,
             options: {
-                notes: '',
+                notes: 'Very draft api version',
                 tags: ['api', 'auth', 'login'],
                 description: 'Login user with a given credentials'
             }
