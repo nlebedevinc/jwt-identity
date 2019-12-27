@@ -2,7 +2,7 @@ import * as Hapi from '@hapi/hapi';
 import namespace from '../lib/namespace';
 import { login } from '../controllers/users.controller';
 
-export default function(server: Hapi.Server, prefix: string) {
+export default function(server: Hapi.Server, prefix: string): void {
     namespace(server, prefix, [
         {
             method: 'POST',
