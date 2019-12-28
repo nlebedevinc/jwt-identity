@@ -17,7 +17,7 @@ interface Server extends HapiServer {
 // pool config: should be replaced to connection string
 const poolConfig: PoolConfig = {
     // connectionString: 'string',
-    user: 'me',
+    user: 'postgres',
     host: 'localhost',
     database: 'api',
     password: 'password',
@@ -62,6 +62,7 @@ async function init(): Promise<Server> {
     // handle on close action
     server.events.on('stop', () => {
         Database.destroy(pool);
+        console.log('Destroyed connection');
     });
 
     return server;
