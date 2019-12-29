@@ -1,6 +1,22 @@
 import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
 import { Pool, QueryResult } from 'pg';
 
+
+// works!
+function storeAlternative(pool: Pool, name: string, password: string): Promise<QueryResult> {
+    return new Promise((resolve, reject) => {
+        const query = 'INSERT INTO users (name, password) VALUES ($1, $2)';
+
+        pool.query(query, [name, password], (error: Error, result: QueryResult) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 /**
  * Simple function that demonstrates intsert request to psql
  * @param pool
@@ -8,19 +24,8 @@ import { Pool, QueryResult } from 'pg';
  * @param password
  */
 function storeCreds(pool: Pool, name: string, password: string): Promise<QueryResult> {
-    // return new Promise((resolve, reject) => {
-    //     pool.query('INSERT INTO users (name, password) VALUES ($1, $2)', [name, password], (error: Error, result: any) => {
-    //         if (error) {
-    //             reject(error);
-    //         } else {
-    //             console.info(`Users creds where added with id: ${result}`);
-
-    //             resolve(result);
-    //         }
-    //     });
-    // })
-
-    return pool.query('INSERT INTO users (name, password) VALUES ($1, $2)', [name, password]);
+    const query = 'INSERT INTO users (name, password) VALUES ($1, $2)';
+    return pool.query(query, [name, password]);
 }
 
 export async function login(_: Request, h: ResponseToolkit): Promise<ResponseObject | Error> {
