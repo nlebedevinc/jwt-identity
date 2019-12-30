@@ -1,27 +1,27 @@
 import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
 import { Pool, QueryResult } from 'pg';
-import { sign } from 'jsonwebtoken';
+// import { sign } from 'jsonwebtoken';
 
-function generateToken(): string {
-    const token = sign({}, 'private key');
+// function generateToken(): string {
+//     const token = sign({}, 'private key');
 
-    return token;
-}
+//     return token;
+// }
 
-// works!
-function storeAlternative(pool: Pool, name: string, password: string): Promise<QueryResult> {
-    return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO users (name, password) VALUES ($1, $2)';
+// // works!
+// function storeAlternative(pool: Pool, name: string, password: string): Promise<QueryResult> {
+//     return new Promise((resolve, reject) => {
+//         const query = 'INSERT INTO users (name, password) VALUES ($1, $2)';
 
-        pool.query(query, [name, password], (error: Error, result: QueryResult) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-}
+//         pool.query(query, [name, password], (error: Error, result: QueryResult) => {
+//             if (error) {
+//                 reject(error);
+//             } else {
+//                 resolve(result);
+//             }
+//         });
+//     });
+// }
 
 /**
  * Simple function that demonstrates intsert request to psql
@@ -32,6 +32,11 @@ function storeAlternative(pool: Pool, name: string, password: string): Promise<Q
 function storeCreds(pool: Pool, name: string, password: string): Promise<QueryResult> {
     const query = 'INSERT INTO users (name, password) VALUES ($1, $2)';
     return pool.query(query, [name, password]);
+}
+
+function findUserByLogin(pool: Pool, name: string): Promise<QueryResult> {
+    const query = 'SELECT * from users WHERE name = $1';
+    return pool.query(query, [name]);
 }
 
 /**
@@ -51,6 +56,16 @@ export async function login(_: Request, h: ResponseToolkit): Promise<ResponseObj
     // get payload information
     const { login, password } = _.payload as any;
     const { pool } = _.server.app as any;
+
+    // find user in the table
+    let user;
+    try {
+        user = await findUserByLogin(pool, login);
+    } catch (error) {
+        console.log(error);
+    }
+
+    console.log(user);
 
     console.info(`Login: ${login}, Password: ${password}`);
 
