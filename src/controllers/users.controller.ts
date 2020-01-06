@@ -1,6 +1,6 @@
 import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
 import { Pool, QueryResult } from 'pg';
-import { badImplementation, unauthorized } from '@hapi/boom';
+import { badImplementation, unauthorized, Boom } from '@hapi/boom';
 import { sign } from 'jsonwebtoken';
 
 // function generateToken(): string {
