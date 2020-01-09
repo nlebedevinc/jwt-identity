@@ -5,7 +5,7 @@ import { Pool, PoolConfig } from 'pg';
 import * as Inert from '@hapi/inert';
 import * as Vision from '@hapi/vision';
 import * as hapiSwagger from 'hapi-swagger';
-import Database from './services/database';
+import DbFactory from './services/database';
 
 interface ApplicationState extends RequestApplicationState {
     pool: Pool;
@@ -33,7 +33,7 @@ async function init(): Promise<Server> {
         port: 3000,
     }) as Server;
 
-    const pool = Database.create(poolConfig);
+    const pool = DbFactory.create(poolConfig);
 
     // meta
     server.app.pool = pool;
@@ -61,7 +61,7 @@ async function init(): Promise<Server> {
 
     // handle on close action
     server.events.on('stop', () => {
-        Database.destroy(pool);
+        DbFactory.destroy(pool);
         console.log('Destroyed connection');
     });
 
