@@ -5,7 +5,7 @@ import { Pool, PoolConfig } from 'pg';
 import * as Inert from '@hapi/inert';
 import * as Vision from '@hapi/vision';
 import * as hapiSwagger from 'hapi-swagger';
-import DbFactory from './services/database';
+import DbFactory from './services/db/base';
 
 interface ApplicationState extends RequestApplicationState {
     pool: Pool;
